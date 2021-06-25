@@ -1,0 +1,20 @@
+<?php
+session_start();
+$username=$_POST['uname'];
+$password=$_POST['pass'];
+$p=md5($password);
+$con=mysqli_connect('localhost','root');
+mysqli_select_db($con,'DBMS');
+$q="Select * from User where User_Name='$username' && password='$p'";
+$result=mysqli_query($con,$q);
+$num=mysqli_num_rows($result);
+if($num==1)
+{
+   $_SESSION['username']=$username;
+   header('location:http://localhost/DBMS/operationUser.php');
+}
+else
+{
+  header('location:http://localhost/DBMS/loginUser.php');
+}
+?>
